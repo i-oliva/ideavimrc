@@ -58,3 +58,4 @@ nnoremap g, :<C-u>action JumpToNextChange<CR>
 nnoremap <C-w>o :<C-u>action CloseAllEditorsButActive<CR>
 
 noremap x "_x
+nnoremap s :action AceAction <CR>
