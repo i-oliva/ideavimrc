@@ -1,61 +1,142 @@
-set number relativenumber
-set surround
-set clipboard=unnamedplus
+" ============================================================================
+" emacs keymaping for cursor movement{{{
+" You have to unbind C-g before it works
+" ============================================================================
+nmap <c-g> <Esc>
+vmap <c-g> <Esc>
+imap <c-g> <Esc>a
+nmap <c-a> ^
+nmap <c-e> $
+vmap <c-a> ^
+vmap <c-e> $
+imap <c-e> <Esc>A
+imap <c-a> <Esc>I
+imap <c-d> <del>
+inoremap <c-p> <up>
+inoremap <c-n> <down>
+" command line
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+"}}}
 
-nnoremap s :<C-u>action AceAction<CR>
+let mapleader = " "
 
-"nnoremap / :<C-u>action Find<CR>
-nnoremap <C-o> :<C-u>action Back<CR>
-nnoremap <C-i> :<C-u>action Forward<CR>
-nnoremap <C-S-o> <C-o>
-nnoremap <C-S-i> <C-i>
+" ============================================================================
+" key bindings for quickly moving between windows
+" h left, l right, k up, j down
+" ============================================================================
+nmap <leader>wh <c-w>h
+nmap <leader>wl <c-w>l
+nmap <leader>wk <c-w>k
+nmap <leader>wj <c-w>j
+nmap <leader>w/ <c-w>v
+nmap <leader>w- <c-w>s
+nmap <leader>wd <c-w>c
+nmap <leader>wm :action HideAllWindows<CR>
 
-nnoremap [m :<C-u>action MethodUp<CR>
-nnoremap ]m :<C-u>action MethodDown<CR>
-nnoremap [c :<C-u>action VcsShowPrevChangeMarker<CR>
-nnoremap ]c :<C-u>action VcsShowNextChangeMarker<CR>
-nnoremap [e :<C-u>action GotoPreviousError<CR>
-nnoremap ]e :<C-u>action GotoNextError<CR>
+vmap <leader>wh <c-w>h
+vmap <leader>wl <c-w>l
+vmap <leader>wk <c-w>k
+vmap <leader>wj <c-w>j
+vmap <leader>w/ <c-w>v
+vmap <leader>w- <c-w>s
+vmap <leader>wd <c-w>c
+vmap <leader>wm :<Backspace><Backspace><Backspace><Backspace><Backspace>action HideAllWindows<CR>
 
-nnoremap K :<C-u>action QuickJavaDoc<CR>
-nnoremap gjK :<C-u>action GotoDeclaration<CR>
-nnoremap gjk :<C-u>action GotoTypeDeclaration<CR>
-nnoremap gji :<C-u>action GotoImplementation<CR>
-nnoremap gjs :<C-u>action GotoSuperMethod<CR>
-nnoremap gjt :<C-u>action GotoTest<CR>
-nnoremap <C-k> :<C-u>action ShowUsages<CR>
+" quickly exit
+imap kj <Esc>
+vmap kj <Esc>
 
-nnoremap cre :<C-u>action RenameElement<CR>
-nnoremap cS :<C-u>action ChangeSignature<CR>
-nnoremap cts :<C-u>action ChangeTypeSignature<CR>
 
-nnoremap <Space>a :<C-u>action GotoAction<CR>
-nnoremap <Space>G :<C-u>action Generate<CR>
-nnoremap <Space>gn :<C-u>action NewClass<CR>
-nnoremap <Space>go :<C-u>action OverrideMethods<CR>
-nnoremap <Space>gc :<C-u>action GenerateConstructor<CR>
-nnoremap <Space>gg :<C-u>action GenerateGetter<CR>
-nnoremap <Space>gs :<C-u>action GenerateSetter<CR>
-nnoremap <Space>ga :<C-u>action GenerateGetterAndSetter<CR>
-nnoremap <Space>ge :<C-u>action GenerateEquals<CR>
-nnoremap <Space>gt :<C-u>action GenerateTestMethod<CR>
-nnoremap <Space>= :<C-u>action ReformatCode<CR>
-nnoremap <Space>o :<C-u>action FileStructurePopup<CR>
-nnoremap <Space>q :<C-u>action CloseContent<CR>
-nnoremap <Space>Q :<C-u>action ReopenClosedTab<CR>
-nnoremap <Space>e :<C-u>action SearchEverywhere<CR>
-nnoremap <Space>f :<C-u>action GotoFile<CR>
-nnoremap <Space>F :<C-u>action FindInPath<CR>
-nnoremap <Space>s :<C-u>action GotoClass<CR>
-nnoremap <Space>S :<C-u>action GotoSymbol<CR>
-nnoremap <Space>t :<C-u>action ActivateTerminalToolWindow<CR>
-nnoremap <Space>P :<C-u>action ManageRecentProjects<CR>
-nnoremap <Space>b :<C-u>action ToggleLineBreakpoint<CR>
+" ============================================================================
+" expand and collapse
+" ============================================================================
+nmap zO :action ExpandAllRegions<CR>
+nmap zo :action ExpandRegion<CR>
+nmap zc :action CollapseRegion<CR>
+nmap zC :action CollapseAllRegions<CR>
 
-nnoremap g; :<C-u>action JumpToLastChange<CR>
-nnoremap g, :<C-u>action JumpToNextChange<CR>
+" ============================================================================
+" IDE actions
+" ============================================================================
 
-nnoremap <C-w>o :<C-u>action CloseAllEditorsButActive<CR>
+nmap <leader><Space> :action GotoAction<CR>
+nmap <leader>cc      :action GotoClass<CR>
+nmap <leader>ff      :action GotoFile<CR>
+nmap <leader>ft      :action ActivateProjectToolWindow<CR>
+nmap <leader>fs      :action SaveAll<CR>
+nmap <leader>fd      :action DashLauncherAction<CR>
+nmap <leader>bb      :action RecentFiles<CR>
+nmap <leader>bi      :action ActivateStructureToolWindow<CR>
+nmap <leader>bp      :action FileStructurePopup<cr>
+nmap <leader>bu      :action ReopenClosedTab<CR>
+nmap <leader>dd      :action Debug<CR>
+nmap <leader>dD      :action DebugClass<CR>
+nmap <leader>tt      :action ToggleLineBreakpoint<CR>
+nmap <leader>rR      :action Run<CR>
+nmap <leader>rr      :action RunClass<CR>
+nmap <leader>im      :action ImplementMethods<CR>
+nmap <leader>ee      :action ShowErrorDescription<cr>
+nmap <leader>'       :action ActivateTerminalToolWindow<CR>
+nmap gd              :action GotoDeclaration<cr>
+nmap gh              :action QuickJavaDoc<CR>
+nmap gs              :action GotoSymbol<cr>
+nmap ,=              :action ReformatCode<CR>
+nmap <c-o>           :action Back<cr>
+nmap <c-i>           :action Forward<cr>
+nmap <leader>gm      :action Generate<CR>
 
-noremap x "_x
-nnoremap s :action AceAction <CR>
+vmap <leader><Space> :<Backspace><Backspace><Backspace><Backspace><Backspace>action GotoAction<CR>
+vmap <leader>cc      :<Backspace><Backspace><Backspace><Backspace><Backspace>action GotoClass<CR>
+vmap <leader>ff      :<Backspace><Backspace><Backspace><Backspace><Backspace>action GotoFile<CR>
+vmap <leader>ft      :<Backspace><Backspace><Backspace><Backspace><Backspace>action ActivateProjectToolWindow<CR>
+vmap <leader>fs      :<Backspace><Backspace><Backspace><Backspace><Backspace>actio SaveAll<CR>
+vmap <leader>fd      :<Backspace><Backspace><Backspace><Backspace><Backspace>action DashLauncherAction<CR>
+vmap <leader>bb      :<Backspace><Backspace><Backspace><Backspace><Backspace>action RecentFiles<CR>
+vmap <leader>bu      :<Backspace><Backspace><Backspace><Backspace><Backspace>action ReopenClosedTab<CR>
+vmap <leader>bi      :<Backspace><Backspace><Backspace><Backspace><Backspace>action ActivateStructureToolWindow<CR>
+vmap <leader>bp      :<Backspace><Backspace><Backspace><Backspace><Backspace>action FileStructurePopup<cr>
+vmap <leader>dd      :<Backspace><Backspace><Backspace><Backspace><Backspace>action Debug<CR>
+vmap <leader>dD      :<Backspace><Backspace><Backspace><Backspace><Backspace>action DebugClass<CR>
+vmap <leader>tt      :<Backspace><Backspace><Backspace><Backspace><Backspace>action ToggleLineBreakpoint<CR>
+vmap <leader>rr      :<Backspace><Backspace><Backspace><Backspace><Backspace>action Run<CR>
+vmap <leader>rR      :<Backspace><Backspace><Backspace><Backspace><Backspace>action RunClass<CR>
+vmap <leader>im      :<Backspace><Backspace><Backspace><Backspace><Backspace>action ImplementMethods<CR>
+vmap <leader>ee      :<Backspace><Backspace><Backspace><Backspace><Backspace>action ShowErrorDescription<cr>
+vmap <leader>'       :<Backspace><Backspace><Backspace><Backspace><Backspace>action ActivateTerminalToolWindow<CR>
+vmap ,=              :<Backspace><Backspace><Backspace><Backspace><Backspace>action ReformatCode<CR>
+vmap <c-o>           :<Backspace><Backspace><Backspace><Backspace><Backspace>action Back<cr>
+vmap <c-i>           :<Backspace><Backspace><Backspace><Backspace><Backspace>action Forward<cr>
+
+" Comment by Line 
+nmap gc :action CommentByBlockComment<CR>
+vmap gc :<Backspace><Backspace><Backspace><Backspace><Backspace>action CommentByBlockComment<CR>
+
+" Enter the command-line mode
+nmap <CR> :
+vmap <CR> :
+
+" Reload .ideavimrc
+nmap <leader>R :source ~/.ideavimrc<CR>
+vmap <leader>R :<Backspace><Backspace><Backspace><Backspace><Backspace>source ~/.ideavimrc<CR>
+
+" check the action list
+nmap <leader>al :actionlist<CR>
+vmap <leader>al :<Backspace><Backspace><Backspace><Backspace><Backspace>actionlist<CR>
+
+" git
+nmap <leader>gs :action Vcs.QuickListPopupAction<CR>
+vmap <leader>gs :<Backspace><Backspace><Backspace><Backspace><Backspace>action Vcs.QuickListPopupAction<CR>
+nmap <leader>gS :action ActivateVersionControlToolWindow<CR>
+vmap <leader>gS :<Backspace><Backspace><Backspace><Backspace><Backspace>action ActivateVersionControlToolWindow<CR>
+
+" search in project
+nmap <leader>sp :action FindInPath<CR>
+vmap <leader>sp :<Backspace><Backspace><Backspace><Backspace><Backspace>action FindInPath<CR>
+
+" replace in project
+nmap <leader>rp :action ReplaceInPath<CR>
+vmap <leader>rp :<Backspace><Backspace><Backspace><Backspace><Backspace>action FindInPath<CR>
+
+" Quit
+nmap <leader>qq :action Exit<CR>
